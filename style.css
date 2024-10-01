@@ -36,7 +36,7 @@ body {
 }
 
 
-header, footer {
+:where(header,footer) { /* :where does not have any specefisty like :is pseudo class */
     position: sticky;
     background-color: #324970;
     color:whitesmoke;
@@ -44,6 +44,9 @@ header, footer {
 }
 header {
     top:0;
+}
+footer {
+    bottom:0;
 }
 nav {
 
@@ -55,24 +58,25 @@ nav {
     justify-content: space-evenly;
 }
 
-nav a , nav a:visited {
+nav :any-link /* :is(a:link, a:visited) */
+{
     color: black;
 }
 
-nav a:focus , nav:hover {
+
+nav :is( a:focus ,a:hover) {
     color: hsla(0, 0%, 20%, 0.6);
 }
 main {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1.5rem;
     padding: 1.5rem;
 
 }
-footer {
-    bottom:0;
-}
+
 
 /* || PROFILE CARD*/
 
@@ -88,6 +92,10 @@ footer {
     align-items: center;
 }
 
+.card:target {
+    border: 2px solid rebeccapurple;
+}
+
 .card figure {
     display: flex;
     flex-flow: column nowrap;
@@ -97,6 +105,11 @@ footer {
     border: 5px double #333;
     border-radius: 50% ;
 }
+
+.card img:not([alt] ){ /* helps u to add alt attribute in case you forgot */
+border: 10px solid;
+}
+
 .card figcaption {
     font-weight: bolder;
     font-size: 2rem;
@@ -104,14 +117,64 @@ footer {
     text-align: center;
 }
 
+.card figcaption::before {
+    content: "✨";
+    display: block;
+}
+
+.card p {
+    position: relative;
+}
+
+.card p::before {
+    content: open-quote;
+    font-size: 3em;
+    position: absolute;
+    top: -0.25em;
+    left: -0.5em;
+}
+.card p::after {
+    content: close-quote;
+    font-size: 3em;
+    position: absolute;
+    top: -0.25em;
+    right: -0.5em;
+}
+
+
+/* || XSMALL*/
+@media screen and (max-width: 576px)  {
+    main {
+     justify-content: center;
+     flex-flow: row wrap;
+     padding: 1rem;
+    }
+
+    footer,nav{
+        display: none;
+
+    }
+
+    .card {
+     width: min (100% , 400px);
+    }
+    .card:last-child {
+     order: -1;
+    }
+
+     
+ }
+
 /* || SMALL*/
-@media screen and (min-width: 576px) {
+@media screen and (min-width: 576px)  {
    main {
     justify-content: center;
     flex-flow: row wrap;
     padding: 1rem;
    }
-
+   nav {
+    display: none;
+   }
    .card {
     width: min (100% , 400px);
    }
@@ -122,9 +185,7 @@ footer {
 }
 /* || MEDIUM*/
 @media screen and (min-width: 768px) {
-   nav {
-    display: none;
-   }
+   
    .card {
     width: min (100% , 325px);
    }
@@ -133,6 +194,9 @@ footer {
    }
    .card figcaption {
     margin: 0.1em 0;
+   }
+   nav {
+    display: flex;
    }
 
    .card p {
