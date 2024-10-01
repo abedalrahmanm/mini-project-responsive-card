@@ -7,6 +7,42 @@
     box-sizing: border-box;
 }
 
+/* || VARIBLES */
+:root {
+    /*fONT*/
+    --FF:"Oswald", sans-serif;
+    --FS:1.5rem;
+    --FS-XL:3rem;
+    /*COLOR*/
+    --BGCOLOR:#475569 ;
+    --ALT-BGCOLOR:#324970 ;
+    --RADIAL-COLOR :whitesmoke;
+    --LIGHT-COLOR:whitesmoke;
+    --TEXT-COLOR:#000;
+    --DARK-COLOR:#000;
+
+    /*GENERAL*/
+    --padding:0.5rem;
+    --padding-l:1rem;
+    --padding-xl:1.5rem;
+    --padding-xxl:2rem;
+
+    --SHADOWS:0 6px 5px -5px var(--DARK-COLOR);
+    --BORDERS:2px solid;
+}
+
+@media (prefers-color-scheme:dark) {
+    :root {
+                /*COLOR*/
+        --BGCOLOR: #1e293b; /* Darker background */
+        --ALT-BGCOLOR: #1a1f29; /* Darker alternate background */
+        --RADIAL-COLOR: #2c2c2c; /* Dark gray for radial */
+        --LIGHT-COLOR: #d1d1d1; /* Lighter gray for elements */
+        --TEXT-COLOR: #000; /* Light gray for text */
+        --DARK-COLOR: #ffffff; /* White for contrast */
+    }
+}
+
 /*|| RESET IMG*/
 img {
     display: block;
@@ -26,10 +62,10 @@ html {
 }
 
 body {
-    font: 1.5rem  "Oswald", sans-serif;
+    font: var(--FS)  var(--FF);
     min-height: 100vh;
-    background-color: #475569;
-    background-image: radial-gradient(whitesmoke,#475569);
+    background-color: var(--BGCOLOR);
+    background-image: radial-gradient(var(--RADIAL-COLOR),var(--BGCOLOR));
     display: flex;
     flex-direction: column;
 
@@ -38,8 +74,8 @@ body {
 
 :where(header,footer) { /* :where does not have any specefisty like :is pseudo class */
     position: sticky;
-    background-color: #324970;
-    color:whitesmoke;
+    background-color: var(--ALT-BGCOLOR);
+    color:var(--LIGHT-COLOR);
     text-align: center;
 }
 header {
@@ -50,17 +86,18 @@ footer {
 }
 nav {
 
-    background-color: white;
-    padding: 0.5rem;
-    border-bottom: 2px solid black;
+    background-color: var(--LIGHT-COLOR);
+    padding: var(--padding);
+    border-bottom: var(--BORDERS) var(--DARK-COLOR);
     font-weight: bolder;
     display: flex;
     justify-content: space-evenly;
+    box-shadow: var(--SHADOWS);
 }
 
 nav :any-link /* :is(a:link, a:visited) */
 {
-    color: black;
+    color: var(--TEXT-COLOR);
 }
 
 
@@ -73,7 +110,7 @@ main {
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    padding: 1.5rem;
+    padding: var(--padding-xl);
 
 }
 
@@ -83,17 +120,17 @@ main {
 .card {
     scroll-margin-top: 8rem;
     width: min(100% , 350px);
-    background-color: #cbd5e1;
-    border: 2px solid black;
+    background-color: var(--LIGHT-COLOR);
+    border: var(--BORDERS) var(--DARK-COLOR);
     border-radius: 15px;
-    padding: 1rem;
+    padding: var(--padding-l);
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .card:target {
-    border: 2px solid rebeccapurple;
+    border: var(--BORDERS) rebeccapurple;
 }
 
 .card figure {
@@ -117,9 +154,9 @@ border: 10px solid;
     text-align: center;
 }
 
-.card figcaption::before {
+.card figcaption::after {
     content: "✨";
-    display: block;
+    /*display: block;*/
 }
 
 .card p {
@@ -128,14 +165,14 @@ border: 10px solid;
 
 .card p::before {
     content: open-quote;
-    font-size: 3em;
+    font-size: var(--FS-XL);
     position: absolute;
     top: -0.25em;
     left: -0.5em;
 }
 .card p::after {
     content: close-quote;
-    font-size: 3em;
+    font-size: var(--FS-XL);
     position: absolute;
     top: -0.25em;
     right: -0.5em;
@@ -147,7 +184,7 @@ border: 10px solid;
     main {
      justify-content: center;
      flex-flow: row wrap;
-     padding: 1rem;
+     padding: var(--padding-l);
     }
 
     footer,nav{
@@ -170,7 +207,7 @@ border: 10px solid;
    main {
     justify-content: center;
     flex-flow: row wrap;
-    padding: 1rem;
+    padding: var(--padding-l);
    }
    nav {
     display: none;
@@ -190,7 +227,7 @@ border: 10px solid;
     width: min (100% , 325px);
    }
    .card figure {
-    flex-flow: column-reverse;
+    flex-flow: column nowrap;
    }
    .card figcaption {
     margin: 0.1em 0;
@@ -224,7 +261,7 @@ border: 10px solid;
 @media screen and (max-height: 425px) 
 and (min-aspect-ratio:7/4){
     h1 {
-        font-size: 1.5rem;
+        font-size: var(--FS);
     }
     nav  {
         display: none;
@@ -240,7 +277,7 @@ and (min-aspect-ratio:7/4){
     }
     .card figcaption,
      .card p {
-        font-size: 1.5rem;
+        font-size: var(--FS);
 
     }
     
